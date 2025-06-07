@@ -18,6 +18,7 @@ namespace Container {
         private:
             std::vector<T> data;
         public:
+            MyContainer() = default;
             /**
             * @brief Adds an element to the container.
             * @param val The value to be added to the container.
