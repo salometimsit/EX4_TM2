@@ -8,7 +8,31 @@
 #include <iterator>
 #include <type_traits>
 #include "MyContainer.hpp"
+
 namespace Container {
+    /**
+        *@brief Class VectorIterator provides an iterator for a vector.
+        * @tparam T Type of elements in the vector.
+        * @returns An iterator that allows traversal of the elements in a vector.
+        * This iterator can be used to iterate over the elements of a vector in a range-based for loop or with standard algorithms.
+        * It provides the basic iterator functionality such as dereferencing, incrementing, and comparison.
+        * It is designed to work with the `MyContainer` class, which uses a vector to store its elements.
+        * The iterator can be used to access the elements in the order they were added to the `MyContainer`.
+     */
+   
+    template<typename T>
+    class VectorIterator {
+    private:
+        typename std::vector<T>::const_iterator it;
+    public:
+        explicit VectorIterator(typename std::vector<T>::const_iterator iter) : it(iter) {}
+        const T& operator*() const { return *it; }
+        VectorIterator& operator++() { ++it; return *this; }
+        bool operator!=(const VectorIterator& other) const { return it != other.it; }
+        bool operator==(const VectorIterator& other) const { return it == other.it; }
+        VectorIterator operator++(int) { VectorIterator temp = *this; ++it; return temp; }
+
+    };
     /**
         * @brief Class Order provides an iterator for the original order of elements in MyContainer.
         * @tparam T Type of elements in MyContainer.
@@ -19,10 +43,10 @@ namespace Container {
     private:
         const std::vector<T>& data;
     public:
-        Order(const MyContainer<T>& c) : data(c.getData()) {}
+        explicit Order(const MyContainer<T>& c) : data(c.getData()) {}
         std::vector<T>& get_orderdata(){return data;}
-        auto begin_order() const { return data.begin(); }
-        auto end_order() const { return data.end(); }
+        VectorIterator<T> begin() const { return VectorIterator<T>(data.begin()); }
+        VectorIterator<T> end() const { return VectorIterator<T>(data.end()); }
         
     };
     /**
@@ -33,12 +57,15 @@ namespace Container {
     template<typename T>
     class ReverseOrder {
     private:
-        const std::vector<T>& data;
+        std::vector<T> reversed;
     public:
-        ReverseOrder(const MyContainer<T>& c) : data(c.getData()) {}
-        std::vector<T>& get_reverseorderdata(){return data;}
-        auto begin_reverse_order() const { return data.rbegin(); }
-        auto end_reverse_order() const { return data.rend(); }
+        explicit ReverseOrder(const MyContainer<T>& c) : reversed(c.getData()) {
+            std::reverse(reversed.begin(), reversed.end());
+        }
+        std::vector<T> get_reverseorderdata(){return reversed;}
+        VectorIterator<T> begin() const { return VectorIterator<T>(reversed.begin()); }
+        VectorIterator<T> end() const { return VectorIterator<T>(reversed.end()); }
+
     };
     /**
         * @brief Class AscendingOrder provides an iterator for the elements in ascending order.
@@ -50,12 +77,12 @@ namespace Container {
         private:
         std::vector<T> sorted;
     public:
-        AscendingOrder(const MyContainer<T>& c) : sorted(c.getData()) {
+        explicit AscendingOrder(const MyContainer<T>& c) : sorted(c.getData()) {
             std::sort(sorted.begin(), sorted.end());
         }
         std::vector<T>& get_ascendingsorted(){return sorted;}
-        auto begin_ascending_order() const { return sorted.begin(); }
-        auto end_ascending_order() const { return sorted.end(); }
+        VectorIterator<T> begin() const { return VectorIterator<T>(sorted.begin()); }
+        VectorIterator<T> end() const { return VectorIterator<T>(sorted.end()); }
     };
     /**
         * @brief Class DescendingOrder provides an iterator for the elements in descending order.
@@ -67,12 +94,13 @@ namespace Container {
     private:
         std::vector<T> sorted;
     public:
-        DescendingOrder(const MyContainer<T>& c) : sorted(c.getData()) {
+         explicit DescendingOrder(const MyContainer<T>& c) : sorted(c.getData()) {
             std::sort(sorted.begin(), sorted.end(), std::greater<T>());
         }
         std::vector<T>& get_descendngsorted(){return sorted;}
-        auto begin_descending_order() const { return sorted.begin(); }
-        auto end_descending_order() const { return sorted.end(); }
+        VectorIterator<T> begin () const { return VectorIterator<T>(sorted.begin()); }
+        VectorIterator<T> end() const { return VectorIterator<T>(sorted.end()); }
+    
     };
     /**
         * @brief Class SideCrossOrder provides an iterator for the elements in a side-cross order- side cross means first 
@@ -102,8 +130,8 @@ namespace Container {
             crossed = std::move(temp);
         }
         std::vector<T>& get_sidecrossed(){return crossed;}
-        auto begin_side_cross_order() const { return crossed.begin(); }
-        auto end_side_cross_order() const { return crossed.end(); }
+        VectorIterator<T> begin() const { return VectorIterator<T>(crossed.begin()); }
+        VectorIterator<T> end() const { return VectorIterator<T>(crossed.end()); }
     };
 
     /**
@@ -144,9 +172,9 @@ namespace Container {
         ordered = std::move(temp);
     }
         std::vector<T>& get_middleout(){return ordered;}
-        auto begin_middle_out_order() const { return ordered.begin(); }
-        auto end_middle_out_order() const { return ordered.end(); }
-        };
+        VectorIterator<T> begin() const { return VectorIterator<T>(ordered.begin()); }
+        VectorIterator<T> end() const { return VectorIterator<T>(ordered.end()); }
+     };
 
 }
 #endif 

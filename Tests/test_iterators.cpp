@@ -13,7 +13,7 @@ TEST_CASE("Iterator copy and assignment") {
     container.addElement(3);
     SUBCASE("Order Iterator Copy") {
         Order<int> order(container);
-        auto it1 = order.begin_order();
+        auto it1 = order.begin();
         auto it2 = it1;
         CHECK(*it1 == *it2);
         it1++;
@@ -23,7 +23,7 @@ TEST_CASE("Iterator copy and assignment") {
     }
     SUBCASE("ReverseOrder Iterator Copy") {
         ReverseOrder<int> reverse(container);
-        auto it1 = reverse.begin_reverse_order();
+        auto it1 = reverse.begin();
         auto it2 = it1;
         CHECK(*it1 == *it2);
         it1++;
@@ -33,7 +33,7 @@ TEST_CASE("Iterator copy and assignment") {
     }
     SUBCASE("DescendingOrder Iterator Copy") {
         DescendingOrder<int> descending(container);
-        auto it1 = descending.begin_descending_order();
+        auto it1 = descending.begin();
         auto it2 = it1;
         CHECK(*it1 == *it2);
         it1++;
@@ -43,7 +43,7 @@ TEST_CASE("Iterator copy and assignment") {
     }
     SUBCASE("AscendingOrder Iterator Copy") {
         AscendingOrder<int> ascending(container);
-        auto it1 = ascending.begin_ascending_order();
+        auto it1 = ascending.begin();
         auto it2 = it1;
         CHECK(*it1 == *it2);
         it1++;
@@ -53,7 +53,7 @@ TEST_CASE("Iterator copy and assignment") {
     }
     SUBCASE("SideCrossOrder Iterator Copy") {
         SideCrossOrder<int> sidecross(container);
-        auto it1 = sidecross.begin_side_cross_order();
+        auto it1 = sidecross.begin();
         auto it2 = it1;
         CHECK(*it1 == *it2);
         it1++;
@@ -63,7 +63,7 @@ TEST_CASE("Iterator copy and assignment") {
     }
     SUBCASE("MiddleOutOrder Iterator Copy") {
         MiddleOutOrder<int> middleout(container);
-        auto it1 = middleout.begin_middle_out_order();
+        auto it1 = middleout.begin();
         auto it2 = it1;
         CHECK(*it1 == *it2);
         it1++;
@@ -81,7 +81,7 @@ TEST_CASE("Order Iterator") {
     container.addElement(9); 
     Order<int> order(container);
     std::vector<int> result;
-    for (auto it = order.begin_order(); it != order.end_order(); ++it) {
+    for (auto it = order.begin(); it != order.end(); ++it) {
         result.push_back(*it);
     }
     std::vector<int> expected = {8, 10, 11, 9};
@@ -96,7 +96,7 @@ TEST_CASE("ReverseOrder Iterator") {
     container.addElement(9);
     ReverseOrder<int> reverse(container);
     std::vector<int> result;
-    for(auto it = reverse.begin_reverse_order(); it != reverse.end_reverse_order(); ++it) {
+    for(auto it = reverse.begin(); it != reverse.end(); ++it) {
         result.push_back(*it);
     }
     std::vector<int> expected = {9, 11, 10, 8};
@@ -112,7 +112,7 @@ TEST_CASE("AscendingOrder Iterator") {
     
     AscendingOrder<int> ascending(container);
     std::vector<int> result;
-    for(auto it = ascending.begin_ascending_order(); it != ascending.end_ascending_order(); ++it) {
+    for(auto it = ascending.begin(); it != ascending.end(); ++it) {
         result.push_back(*it);
     }
     std::vector<int> expected = {8, 9, 10, 11};
@@ -128,7 +128,7 @@ TEST_CASE("DescendingOrder Iterator") {
     
     DescendingOrder<int> descending(container);
     std::vector<int> result;
-    for(auto it = descending.begin_descending_order(); it != descending.end_descending_order(); ++it) {
+    for(auto it = descending.begin(); it != descending.end(); ++it) {
         result.push_back(*it);
     }
     std::vector<int> expected = {11, 10, 9, 8};
@@ -144,7 +144,7 @@ TEST_CASE("SideCrossOrder Iterator") {
     
     SideCrossOrder<int> sidecross(container);
     std::vector<int> result;
-    for (auto it = sidecross.begin_side_cross_order(); it != sidecross.end_side_cross_order(); ++it) {
+    for (auto it = sidecross.begin(); it != sidecross.end(); ++it) {
         result.push_back(*it);
     }
     std::vector<int> expected = {8, 11, 9, 10};
@@ -162,7 +162,7 @@ TEST_CASE("MiddleOutOrder Iterator") {
         
         MiddleOutOrder<int> middleout(container);
         std::vector<int> result;
-        for(auto it = middleout.begin_middle_out_order(); it != middleout.end_middle_out_order(); ++it) {
+        for(auto it = middleout.begin(); it != middleout.end(); ++it) {
             result.push_back(*it);
         }
         std::vector<int> expected = {6, 15, 1, 7, 2};
@@ -178,7 +178,7 @@ TEST_CASE("MiddleOutOrder Iterator") {
         
         MiddleOutOrder<int> middleout(container);
         std::vector<int> result;
-        for(auto it = middleout.begin_middle_out_order(); it != middleout.end_middle_out_order(); ++it) {
+        for(auto it = middleout.begin(); it != middleout.end(); ++it) {
             result.push_back(*it);
         }
         std::vector<int> expected = {3, 2, 4, 1};
@@ -195,7 +195,7 @@ TEST_CASE("Iterator Tests with Strings") {
     SUBCASE("AscendingOrder with strings") {
         AscendingOrder<std::string> ascending(container);
         std::vector<std::string> result;
-        for (auto it = ascending.begin_ascending_order(); it != ascending.end_ascending_order(); ++it) {
+        for (auto it = ascending.begin(); it != ascending.end(); ++it) {
             result.push_back(*it);
         }
         std::vector<std::string> expected = {"apple", "banana", "cherry", "date"};
@@ -205,7 +205,7 @@ TEST_CASE("Iterator Tests with Strings") {
     SUBCASE("DescendingOrder with strings") {
         DescendingOrder<std::string> descending(container);
         std::vector<std::string> result;
-        for (auto it = descending.begin_descending_order(); it != descending.end_descending_order(); ++it) {
+        for (auto it = descending.begin(); it != descending.end(); ++it) {
             result.push_back(*it);
         }
         std::vector<std::string> expected = {"date", "cherry", "banana", "apple"};
@@ -215,7 +215,7 @@ TEST_CASE("Iterator Tests with Strings") {
     SUBCASE("MiddleOutOrder with strings") {
         MiddleOutOrder<std::string> middleout(container);
         std::vector<std::string> result;
-        for (auto it = middleout.begin_middle_out_order(); it != middleout.end_middle_out_order(); ++it) {
+        for (auto it = middleout.begin(); it != middleout.end(); ++it) {
             result.push_back(*it);
         }
         std::vector<std::string> expected = {"cherry", "apple", "date", "banana"};
@@ -228,13 +228,13 @@ TEST_CASE("Edge Cases") {
         MyContainer<int> empty_container;
         
         Order<int> order(empty_container);
-        CHECK(order.begin_order() == order.end_order());
+        CHECK(order.begin() == order.end());
         
         AscendingOrder<int> ascending(empty_container);
-        CHECK(ascending.begin_ascending_order() == ascending.end_ascending_order());
+        CHECK(ascending.begin() == ascending.end());
         
         MiddleOutOrder<int> middleout(empty_container);
-        CHECK(middleout.begin_middle_out_order() == middleout.end_middle_out_order());
+        CHECK(middleout.begin() == middleout.end());
     }
     
     SUBCASE("Single element container") {
@@ -243,7 +243,7 @@ TEST_CASE("Edge Cases") {
         
         MiddleOutOrder<int> middleout(single_container);
         std::vector<int> result;
-        for(auto it = middleout.begin_middle_out_order(); it != middleout.end_middle_out_order(); ++it) {
+        for(auto it = middleout.begin(); it != middleout.end(); ++it) {
             result.push_back(*it);
         }
         std::vector<int> expected = {42};
@@ -257,7 +257,7 @@ TEST_CASE("Edge Cases") {
         
         MiddleOutOrder<int> middleout(two_container);
         std::vector<int> result;
-        for(auto it = middleout.begin_middle_out_order(); it != middleout.end_middle_out_order(); ++it) {
+        for(auto it = middleout.begin(); it != middleout.end(); ++it) {
             result.push_back(*it);
         }
         std::vector<int> expected = {20, 10};
@@ -274,7 +274,7 @@ TEST_CASE("Iterators with char type") {
     SUBCASE("AscendingOrder with char") {
         Container::AscendingOrder<char> asc(container);
         std::vector<char> result;
-        for (auto it = asc.begin_ascending_order(); it != asc.end_ascending_order(); ++it) {
+        for (auto it = asc.begin(); it != asc.end(); ++it) {
             result.push_back(*it);
         }
         CHECK(result == std::vector<char>{'a', 'b', 'c', 'd'});
@@ -283,7 +283,7 @@ TEST_CASE("Iterators with char type") {
     SUBCASE("SideCrossOrder with char") {
     Container::SideCrossOrder<char> cross(container);
     std::vector<char> result;
-    for (auto it = cross.begin_side_cross_order(); it != cross.end_side_cross_order(); ++it) {
+    for (auto it = cross.begin(); it != cross.end(); ++it) {
         result.push_back(*it);
     }
     // Sorted: a, b, c, d -> cross: a, d, b, c
@@ -301,7 +301,7 @@ TEST_CASE("Iterators with double type") {
     SUBCASE("AscendingOrder with double") {
         Container::AscendingOrder<double> asc(container);
         std::vector<double> result;
-        for (auto it = asc.begin_ascending_order(); it != asc.end_ascending_order(); ++it) {
+        for (auto it = asc.begin(); it != asc.end(); ++it) {
             result.push_back(*it);
         }
         CHECK(result == std::vector<double>{-1.0, 0.0, 1.618, 2.71, 3.14});
@@ -310,7 +310,7 @@ TEST_CASE("Iterators with double type") {
     SUBCASE("MiddleOutOrder with double") {
         Container::MiddleOutOrder<double> mid(container);
         std::vector<double> result;
-        for (auto it = mid.begin_middle_out_order(); it != mid.end_middle_out_order(); ++it) {
+        for (auto it = mid.begin(); it != mid.end(); ++it) {
             result.push_back(*it);
         }
         CHECK(result.size() == 5);
