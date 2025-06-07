@@ -316,5 +316,46 @@ TEST_CASE("Iterators with double type") {
         CHECK(result.size() == 5);
     }
 }
+struct Person {
+    std::string name;
+    int age;
+
+    bool operator<(const Person& other) const {
+        return age < other.age;  // sort by age
+    }
+
+    bool operator==(const Person& other) const {
+        return name == other.name && age == other.age;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Person& p) {
+        return os << p.name << " (" << p.age << ")";
+    }
+};
+TEST_CASE("Iterators with special type Person") {
+    Container::MyContainer<Person> people;
+    people.addElement({"Yosi", 30});
+    people.addElement({"Ariel", 25});
+    people.addElement({"Salome", 35});
+
+    SUBCASE("AscendingOrder with Person") {
+        Container::AscendingOrder<Person> asc(people);
+        std::vector<Person> result;
+        for (const auto& p : asc) {
+            result.push_back(p);
+        }
+        CHECK(result.front().name == "Ariel"); 
+        CHECK(result.back().name == "Salome");  
+    }
+
+    SUBCASE("ReverseOrder with Person") {
+        Container::ReverseOrder<Person> rev(people);
+        std::vector<Person> result;
+        for (const auto& p : rev) {
+            result.push_back(p);
+        }
+        CHECK(result.front().name == "Salome");
+    }
+}
 
 
