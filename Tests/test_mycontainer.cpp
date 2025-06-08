@@ -46,6 +46,7 @@ TEST_CASE("MyContainer - Basic Operations") {
         container.addElement(10);
         CHECK_THROWS_AS(container.remove(99), std::runtime_error);
     }
+    
 }
 
 TEST_CASE("MyContainer - String Operations") {

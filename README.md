@@ -49,3 +49,5 @@ make test
 ```sh
 make Valgrind
 ```
+### Help:
+- I used AI chatgpt and claude to help with the  readme and give me edge casses for tests, the rest of the code is originally mine
