@@ -40,12 +40,14 @@ TEST_CASE("MyContainer - Basic Operations") {
         auto data = container.getData();
         CHECK(data[0] == 10);
         CHECK(data[1] == 30);
+        
     }
     
     SUBCASE("Remove non-existent element throws exception") {
         container.addElement(10);
         CHECK_THROWS_AS(container.remove(99), std::runtime_error);
     }
+    
     
 }
 
